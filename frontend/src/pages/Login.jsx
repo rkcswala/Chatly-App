@@ -44,8 +44,8 @@ const Login = () => {
           withCredentials: true
         }
       );
-    dispatch(setUser(Api.data.user|| Api.data.User));
-      // console.log(Api.data.User);
+    dispatch(setUser(Api.data.user));
+      console.log(Api.data.user);
 
       alert(Api.data.message);
       navigate("/home")

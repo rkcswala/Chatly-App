@@ -34,7 +34,7 @@ const userSlice = createSlice({
     },
 
      setonlineusers: (state, action) => {
-      state.onlineusers = action.payload;
+      state.onlineuser = action.payload;
     },
     updateUserData: (state, action) => {
       state.userData = {
