@@ -47,7 +47,7 @@ const MessageBox = () => {
 
     try {
       const result = await axios.post(
-        `http://localhost:3000/message/send/${selecteduser._id}`,
+        `https://chatly-app-chi.vercel.app/message/send/${selecteduser._id}`,
         { message: text },
         { withCredentials: true }
       );
