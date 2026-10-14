@@ -35,6 +35,10 @@ const MessageBox = () => {
 
 
   const sendmessage = async (e) => {
+
+    useEffect(() => {
+      console.log("Current User in Redux:", currentUser);
+    }, [currentUser]);
     e.preventDefault();
 
     const text = input.trim();
