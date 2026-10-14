@@ -45,7 +45,7 @@ const Login = () => {
         }
       );
     dispatch(setUser(Api.data.user));
-      console.log(Api.data.user);
+      console.log(Api.data);
 
       alert(Api.data.message);
       navigate("/home")

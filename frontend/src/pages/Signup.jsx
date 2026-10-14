@@ -41,7 +41,7 @@ const Signup = () => {
       );
       // console.log(Api.data);
 
-     dispatch(setUser(Api.data.user));
+     dispatch(setUser(Api.data));
       setloading(false)
       alert(Api.data.message);
       navigate("/home")
