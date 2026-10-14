@@ -18,7 +18,11 @@ app.use(cors({
  
 }));
 
-connectdb()
+const asynchandler = async()=>{
+  await connectdb()
+}
+asynchandler()
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
