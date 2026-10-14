@@ -12,7 +12,7 @@ import { app, server } from "./socket/socket.js"
 
 
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: "https://chat-friendly.netlify.app",
   credentials: true,
    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
  

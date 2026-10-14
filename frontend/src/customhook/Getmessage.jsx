@@ -19,7 +19,7 @@ const Getmessage = () => {
       try {
        
         const result = await axios.get(
-          `http://localhost:3000/message/get/${selecteduser._id}`,
+          `https://chatly-app-chi.vercel.app/message/get/${selecteduser._id}`,
           {
             
             withCredentials: true,

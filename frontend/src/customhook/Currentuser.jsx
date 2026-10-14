@@ -12,7 +12,7 @@ const dispatch = useDispatch();
   const fetchCurrentUser = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/users/current",
+        "https://chatly-app-chi.vercel.app/users/current",
         { withCredentials: true }
       );
 

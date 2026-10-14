@@ -38,7 +38,7 @@ const Login = () => {
     try {
 
       const Api = await axios.post(
-        `http://localhost:3000/users/login`,
+        `https://chatly-app-chi.vercel.app/users/login`,
         formdata,
         {
           withCredentials: true

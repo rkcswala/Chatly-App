@@ -17,7 +17,7 @@ const Sidebar = () => {
   const handleLogout = async () => {
     try {
       const response = await axios.post(
-        `http://localhost:3000/users/logout`,
+        `https://chatly-app-chi.vercel.app/users/logout`,
         {},
         { withCredentials: true }
       );
@@ -35,7 +35,7 @@ const Sidebar = () => {
   const getUsers = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/users/allusers`,
+        `https://chatly-app-chi.vercel.app/users/allusers`,
         {
           withCredentials: true,
         }

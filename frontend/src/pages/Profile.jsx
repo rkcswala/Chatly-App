@@ -68,7 +68,7 @@ const Profile = () => {
       }
 
       const response = await axios.put(
-        `http://localhost:3000/users/update`,
+        `https://chatly-app-chi.vercel.app/users/update`,
         formData,
         {
           withCredentials: true,
