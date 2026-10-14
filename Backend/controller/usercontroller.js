@@ -162,27 +162,26 @@ export const logout = async (req, res) => {
 
 export const getallusers = async (req, res) => {
   try {
-    const users = await User.find().select("-password");
-
-    if (!users || users.length === 0) {
-      return res.status(404).json({
-        message: "No users found"
-      });
-    }
+    const users = await User.find()
+      .select("-password")
+      .lean();
 
     return res.status(200).json({
-      message: "All users fetched successfully",
-      users
+      success: true,
+      message: users.length
+        ? "All users fetched successfully"
+        : "No users found",
+      users,
     });
-
   } catch (error) {
+    console.error("GET ALL USERS ERROR:", error);
 
     return res.status(500).json({
-      message: "Get all users error",
-
+      success: false,
+      message: "Get all users failed",
     });
   }
-}
+};
 
 
 // current user controller 
