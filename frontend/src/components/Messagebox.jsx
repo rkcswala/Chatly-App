@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+
+import React, { useState, useEffect } from "react";
 
 import {
   FaPhone,
@@ -16,29 +17,50 @@ import { useDispatch, useSelector } from "react-redux";
 import SenderMessage from "./SenderMessage";
 import ReceiverMessage from "./ReceiverMessage";
 import axios from "axios";
-import { addMessage, } from "../redux/messageSlice";
-import { useEffect } from "react";
+import { addMessage } from "../redux/messageSlice";
 import socket from "../socket";
 
+const API = "https://chatly-app-chi.vercel.app";
 
 const MessageBox = () => {
-  const selecteduser = useSelector((state) => state.user.selecteduser);
+  const selecteduser = useSelector(
+    (state) => state.user.selecteduser
+  );
 
-  const currentUser = useSelector((state) => state.user.userData);
+  const currentUser = useSelector(
+    (state) => state.user.userData
+  );
 
-  const { messages } = useSelector((state) => state.message);
+  const { messages } = useSelector(
+    (state) => state.message
+  );
 
   const dispatch = useDispatch();
 
   const [input, setInput] = useState("");
   const [showpicker, setShowpicker] = useState(false);
 
+  // Check current user
+  useEffect(() => {
+    console.log("Current User in Redux:", currentUser);
+  }, [currentUser]);
 
+  // Receive real-time messages
+  useEffect(() => {
+    const handleNewMessage = (mess) => {
+      if (!mess?._id) return;
+      dispatch(addMessage(mess));
+    };
+
+    socket.on("newMessage", handleNewMessage);
+
+    return () => {
+      socket.off("newMessage", handleNewMessage);
+    };
+  }, [dispatch]);
+
+  // Send message
   const sendmessage = async (e) => {
-
-    useEffect(() => {
-      console.log("Current User in Redux:", currentUser);
-    }, [currentUser]);
     e.preventDefault();
 
     const text = input.trim();
@@ -47,11 +69,10 @@ const MessageBox = () => {
 
     try {
       const result = await axios.post(
-        `https://chatly-app-chi.vercel.app/message/send/${selecteduser._id}`,
+        `${API}/message/send/${selecteduser._id}`,
         { message: text },
         { withCredentials: true }
       );
-
 
       const newMessage = result.data.newMessage;
 
@@ -67,19 +88,6 @@ const MessageBox = () => {
     }
   };
 
-
-
-  useEffect(() => {
-    const handleNewMessage = (mess) => {
-      dispatch(addMessage(mess));
-    };
-
-    socket.on("newMessage", handleNewMessage);
-
-    return () => {
-      socket.off("newMessage", handleNewMessage);
-    };
-  }, [dispatch]);
   return (
     <div className="message-box">
       {selecteduser ? (
@@ -109,30 +117,39 @@ const MessageBox = () => {
 
           <div className="msg">
             <div className="message-list">
+              {Array.isArray(messages) &&
+                messages.map((mess) => {
+                  const senderId =
+                    typeof mess.sender === "object"
+                      ? mess.sender?._id
+                      : mess.sender;
 
-              {messages.map((mess) => (
-                String(mess.sender?._id || mess.sender) ===
-                  String(currentUser?._id) ?
-                  <SenderMessage
-                    key={mess._id}
-                    message={mess.message}
+                  const isCurrentUser =
+                    String(senderId) ===
+                    String(currentUser?._id);
 
-                  />
-                  :
-                  <ReceiverMessage
-                    key={mess._id}
-                    message={mess.message}
-
-                  />
-
-              ))}
+                  return isCurrentUser ? (
+                    <SenderMessage
+                      key={mess._id}
+                      message={mess.message}
+                    />
+                  ) : (
+                    <ReceiverMessage
+                      key={mess._id}
+                      message={mess.message}
+                    />
+                  );
+                })}
             </div>
           </div>
 
           <div className="messagearea">
-
             <form className="frm" onSubmit={sendmessage}>
-              <div onClick={() => setShowpicker((prev) => !prev)}>
+              <div
+                onClick={() =>
+                  setShowpicker((prev) => !prev)
+                }
+              >
                 <RiEmojiStickerLine className="emoji" />
               </div>
 
@@ -159,7 +176,6 @@ const MessageBox = () => {
                 </button>
               </div>
             </form>
-
           </div>
         </div>
       ) : (
