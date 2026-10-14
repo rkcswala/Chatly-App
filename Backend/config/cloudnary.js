@@ -7,7 +7,7 @@ cloudinary.config({
   api_secret: "cfgyRyTJecXmixGlXz3fNuuJdN0",
 });
 
-// console.log("Cloudinary config loaded");
+
 
 const uploadclounary = async (filepath) => {
   try {

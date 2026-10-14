@@ -8,12 +8,12 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "https://chat-friendly.netlify.app",
+    origin: "https://chatly-app15.netlify.app",
     methods: ["GET", "POST"],
     credentials: true,
   },
-});
-
+  transports: ["websocket", "polling"],
+})
 export const usersocketmap = {};
 
 export const getReceiversocketId = (receiverId) => {

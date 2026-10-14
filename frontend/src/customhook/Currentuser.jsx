@@ -14,7 +14,7 @@ const Currentuser = () => {
           { withCredentials: true }
         );
 
-        console.log("Current User API Response:", response.data);
+        // console.log("Current User API Response:", response.data);
 
         const userData = response.data.user || response.data.User;
 

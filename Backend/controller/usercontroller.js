@@ -239,7 +239,6 @@ export const editProfile = async (req, res) => {
     }
 
     const { name, email } = req.body;
-
     const updateData = {};
 
     if (name?.trim()) {
@@ -250,7 +249,6 @@ export const editProfile = async (req, res) => {
       updateData.email = email.trim();
     }
 
-    // Image selected hai to image bhi update karo
     if (req.file) {
       const image = await uploadclounary(req.file.path);
 
@@ -264,16 +262,21 @@ export const editProfile = async (req, res) => {
       updateData.image = image.secure_url;
     }
 
+    if (Object.keys(updateData).length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: "No profile data provided",
+      });
+    }
 
     const user = await User.findByIdAndUpdate(
       userId,
-      updateData,
+      { $set: updateData },
       {
-        returnDocument: "after",
+        new: true,
         runValidators: true,
       }
     ).select("-password");
-
 
     if (!user) {
       return res.status(404).json({
@@ -287,8 +290,9 @@ export const editProfile = async (req, res) => {
       message: "Profile updated successfully",
       user,
     });
-
   } catch (error) {
+    console.error("EDIT PROFILE ERROR:", error);
+
     return res.status(500).json({
       success: false,
       message: "Profile update failed",
