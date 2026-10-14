@@ -9,28 +9,27 @@ cloudinary.config({
 
 
 
-const uploadclounary = async (filepath) => {
+const uploadclounary = async (fileBuffer) => {
   try {
-    const result = await cloudinary.uploader.upload(filepath, {
-      folder: "public",
+    const result = await new Promise((resolve, reject) => {
+      const stream = cloudinary.uploader.upload_stream(
+        { folder: "chatapp_profiles" },
+        (error, result) => {
+          if (error) {
+            return reject(error);
+          }
+
+          resolve(result);
+        }
+      );
+
+      stream.end(fileBuffer);
     });
-
-    // console.log("Cloudinary upload success");
-
-    if (fs.existsSync(filepath)) {
-      fs.unlinkSync(filepath);
-    }
 
     return result;
   } catch (error) {
-    console.log("Cloudinary Upload Error:", error);
-
-    if (fs.existsSync(filepath)) {
-      fs.unlinkSync(filepath);
-    }
-
+    console.error("Cloudinary Upload Error:", error);
     throw error;
   }
 };
-
 export default uploadclounary;

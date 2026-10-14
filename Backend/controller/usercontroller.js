@@ -159,7 +159,6 @@ export const logout = async (req, res) => {
 
 // all users find karna 
 
-
 export const getallusers = async (req, res) => {
   try {
     const users = await User.find()
@@ -185,9 +184,6 @@ export const getallusers = async (req, res) => {
 
 
 // current user controller 
-
-
-
 
 export const getcurrentuser = async (req, res) => {
   try {
@@ -223,9 +219,6 @@ export const getcurrentuser = async (req, res) => {
 
 // profile update controller
 
-
-
-
 export const editProfile = async (req, res) => {
   try {
     const userId = req.userId;
@@ -248,8 +241,9 @@ export const editProfile = async (req, res) => {
       updateData.email = email.trim();
     }
 
+    // Upload image directly from memory to Cloudinary
     if (req.file) {
-      const image = await uploadclounary(req.file.path);
+      const image = await uploadclounary(req.file.buffer);
 
       if (!image?.secure_url) {
         return res.status(500).json({
@@ -294,7 +288,7 @@ export const editProfile = async (req, res) => {
 
     return res.status(500).json({
       success: false,
-      message: "Profile update failed",
+      message: error.message || "Profile update failed",
     });
   }
 };
