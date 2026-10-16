@@ -22,7 +22,7 @@ const Profile = () => {
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
+   const [msg,setmsg] = useState("")
 
   const fileInputRef = useRef(null);
 
@@ -74,7 +74,7 @@ const Profile = () => {
           withCredentials: true,
         }
       );
-
+        setmsg(response.data.message)
       navigate("/home")
       const updatedUser = response.data.user;
 
@@ -87,7 +87,7 @@ const Profile = () => {
 
       setImage(null);
 
-      alert("Profile updated successfully");
+      // alert("Profile updated successfully");
 
     } catch (error) {
       console.log(error);

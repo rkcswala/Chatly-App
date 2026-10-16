@@ -14,6 +14,7 @@ const Signup = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setloading] = useState(false)
   const [err, seterr] = useState("")
+  const [msg, setmsg] = useState("")
 
   const [formdata, setformdata] = useState({
     name: "",
@@ -43,7 +44,7 @@ const Signup = () => {
 
      dispatch(setUser(Api.data));
       setloading(false)
-      alert(Api.data.message);
+      setmsg(Api.data.message);
       navigate("/home")
       setformdata({
         name: "",
@@ -98,6 +99,7 @@ const Signup = () => {
           <p >If you have already account go to <a onClick={() => navigate("/login")}>login</a> </p>
 
           {err && <p style={{ color: "red" }}> {err} </p>}
+          {msg && <p style={{ color: "green" }}> {msg} </p>}
 
         </form>
       </div>

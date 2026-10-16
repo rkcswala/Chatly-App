@@ -15,6 +15,7 @@ const Login = () => {
   const [loading, setloading] = useState(false);
 
   const [err, seterr] = useState("");
+  const [msg, setmsg] = useState("");
 
   const [formdata, setformdata] = useState({
     email: "",
@@ -47,7 +48,7 @@ const Login = () => {
     dispatch(setUser(Api.data.user));
       console.log(Api.data);
 
-      alert(Api.data.message);
+      setmsg(Api.data.message);
       navigate("/home")
       setformdata({
         email: "",
@@ -112,6 +113,7 @@ const Login = () => {
 
          
          {err &&  <p style={{color:'red'}}> {err} </p>  }
+         {msg &&  <p style={{color:'green'}}> {msg} </p>  }
 
           <button type="submit" disabled={loading}>
             {loading ? "Loading..." : "Login"}
