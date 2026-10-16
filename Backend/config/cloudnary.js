@@ -1,24 +1,22 @@
+
 import { v2 as cloudinary } from "cloudinary";
-import fs from "fs";
 
 cloudinary.config({
-  cloud_name: "arenmcab",
+   cloud_name: "arenmcab",
   api_key: "523543779523678",
   api_secret: "cfgyRyTJecXmixGlXz3fNuuJdN0",
 });
 
-
-
-const uploadclounary = async (fileBuffer) => {
+const Imageuploadcloudinary = async (fileBuffer) => {
   try {
     const result = await new Promise((resolve, reject) => {
       const stream = cloudinary.uploader.upload_stream(
-        { folder: "chatapp_profiles" },
+        {
+          folder: "chatapp_profiles",
+          resource_type: "image",
+        },
         (error, result) => {
-          if (error) {
-            return reject(error);
-          }
-
+          if (error) return reject(error);
           resolve(result);
         }
       );
@@ -32,4 +30,6 @@ const uploadclounary = async (fileBuffer) => {
     throw error;
   }
 };
-export default uploadclounary;
+
+export default Imageuploadcloudinary;
+

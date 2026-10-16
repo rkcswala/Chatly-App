@@ -1,7 +1,7 @@
 import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 import genToken from "../config/token.js";
-import uploadclounary from "../config/cloudnary.js"
+import Imageuploadcloudinary from "../config/cloudnary.js"
 
 export const signup = async (req, res) => {
   try {
@@ -243,7 +243,7 @@ export const editProfile = async (req, res) => {
 
     // Upload image directly from memory to Cloudinary
     if (req.file) {
-      const image = await uploadclounary(req.file.buffer);
+      const image = await Imageuploadcloudinary(req.file.buffer);
 
       if (!image?.secure_url) {
         return res.status(500).json({

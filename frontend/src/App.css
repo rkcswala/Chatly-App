@@ -421,6 +421,12 @@ form p a:hover {
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
+.sent img {
+  max-width:150px;
+  height: auto;
+  margin-top: 5px;
+  border-radius: 10px;
+}
 
 
 .received {
@@ -440,7 +446,17 @@ form p a:hover {
   align-self: flex-start;
   left: 0px;
 }
-
+.received span {
+  display: block;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.received img {
+  max-width:150px;
+  height: auto;
+  margin-top: 5px;
+  border-radius: 10px;
+}
 .messagearea {
   position: absolute;
   bottom: 30px;
@@ -533,8 +549,35 @@ form p a:hover {
   width: 20px;
   height: 20px;
 }
+.emoji-picker-container{
+  position: absolute;
+  bottom: 100px;
+  left: auto;
 
+  z-index: 1000;
+}
 
+.photo-preview{
+  
+  position: absolute;
+  bottom: 100px;
+  right: 250px;
+  width: 250px;
+  height: 200px;
+  border-radius: 20px;
+  background-color:transparent;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.photo-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
 .home {
   display: flex;
   width: 100%;
@@ -599,6 +642,38 @@ form p a:hover {
 
   .home.chat-open .message-box {
     display: flex;
+  }
+  .emoji-picker-container{
+    position: absolute;
+    bottom: 100px;
+    left: auto;
+    width: 250px;
+    
+  }
+  .photo-preview{
+    position: absolute;
+    bottom: 100px;
+    right: 40px;
+   width: 150px;
+    height: 200px;
+  }
+  .photo-preview img {
+    width: 150px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+  .sent img {
+    width:100px;
+    height: auto;
+    margin-top: 5px;
+    border-radius: 10px;
+  }
+  .received img {
+    width:100px;
+    height: auto;
+    margin-top: 5px;
+    border-radius: 10px;
   }
 
 }

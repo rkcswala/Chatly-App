@@ -8,7 +8,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "https://chatly-app15.netlify.app",
+    origin: "http://localhost:5173",
     methods: ["GET", "POST"],
     credentials: true,
   },
